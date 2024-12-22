@@ -11,8 +11,8 @@ from functools import wraps
 import requests
 
 from circleci.exceptions import CircleCIError
+from circleci.resources import dict_to_circleci_resource
 from circleci.utils import validate_login
-from resources import dict_to_circleci_resource
 
 LOG = _log.getLogger("circleci")
 LOG.addHandler(_log.NullHandler())
@@ -36,7 +36,7 @@ class CircleCI:
         if login_validation:
             valid, response = validate_login(self.BASE_URL, self.headers)
             if not valid:
-                raise CircleCIError("Cannot logic with the provided token. "
+                raise CircleCIError("Cannot login with the provided token. "
                                     "Please check the token.",
                                     response.status_code,
                                     response=response)
@@ -104,20 +104,25 @@ class CircleCI:
                                 json=payload)
         return response
 
-    def response_validation(self, func):
+    @staticmethod
+    def response_validation(func):
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(self, *args, **kwargs):
             self.log.info('Validating response...')
-            response = func(*args, **kwargs)
+            response = func(self, *args, **kwargs)
             response_data = response.json()
-            response_data.update(
-                {'metadata': {'status_code': response.status_code, 'url': response.url}})
+            if isinstance(response_data, dict):
+                response_data.update(
+                    {'metadata': {'status_code': response.status_code, 'url': response.url}})
+            elif isinstance(response_data, list):
+                response_data = {'response': response_data,
+                                 'metadata': {'status_code': response.status_code,
+                                              'url': response.url}}
             if response.status_code in range(200, 299):
                 self.log.info('Response validated successfully.')
                 return dict_to_circleci_resource(response_data)
             self.log.error('Failed to validate response.')
-            raise CircleCIError('Failed to validate response.',
-                                response.status_code,
+            raise CircleCIError('Failed to validate response.', response.status_code,
                                 response=response)
 
         return wrapper
