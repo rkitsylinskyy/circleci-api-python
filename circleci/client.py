@@ -19,13 +19,15 @@ LOG.addHandler(_log.NullHandler())
 
 
 class CircleCI:
+    """ CircleCI API client. """
+
     BASE_URL = "https://circleci.com"
 
     def __init__(self, token: str,
                  logging: bool = True,
                  max_retries: int = 3,
                  retry_delay: int = 1,
-                 timeout: None or int = None,
+                 timeout: None or int = 3,
                  login_validation: bool = False):
         self.__token = token
         self.headers = {'Circle-Token': self.__token}
@@ -52,7 +54,8 @@ class CircleCI:
         :return: response
         """
         response = requests.get(self.BASE_URL + endpoint,
-                                headers=self.headers)
+                                headers=self.headers,
+                                timeout=self.timeout)
         return response
 
     def _post(self, endpoint: str,
@@ -65,7 +68,8 @@ class CircleCI:
         """
         response = requests.post(self.BASE_URL + endpoint,
                                  headers=self.headers,
-                                 json=payload)
+                                 json=payload,
+                                 timeout=self.timeout)
         return response
 
     def _delete(self, endpoint: str) -> requests.Response:
@@ -75,7 +79,8 @@ class CircleCI:
         :return: response
         """
         response = requests.delete(self.BASE_URL + endpoint,
-                                   headers=self.headers)
+                                   headers=self.headers,
+                                   timeout=self.timeout)
         return response
 
     def _patch(self, endpoint: str,
@@ -88,7 +93,8 @@ class CircleCI:
         """
         response = requests.patch(self.BASE_URL + endpoint,
                                   headers=self.headers,
-                                  json=payload)
+                                  json=payload,
+                                  timeout=self.timeout)
         return response
 
     def _put(self, endpoint: str,
@@ -101,11 +107,22 @@ class CircleCI:
         """
         response = requests.put(self.BASE_URL + endpoint,
                                 headers=self.headers,
-                                json=payload)
+                                json=payload,
+                                timeout=self.timeout)
         return response
 
     @staticmethod
     def response_validation(func):
+        """
+        Decorator to validate the response from the CircleCI API.
+
+        Args:
+            func (function): function to decorate
+
+        Returns:
+            function: decorated function
+        """
+
         @wraps(func)
         def wrapper(self, *args, **kwargs):
             self.log.info('Validating response...')
@@ -146,7 +163,7 @@ class CircleCI:
         \"type\":\"organization\"}}"
 
         """
-        endpoint = f"/api/v2/context"
+        endpoint = "/api/v2/context"
         payload = {
             "name": name,
             "owner": {
@@ -336,7 +353,7 @@ class CircleCI:
         :param parameters: parameters (dict)
         :return: response
         """
-        endpoint = f"/api/v2/pipeline/continue"
+        endpoint = "/api/v2/pipeline/continue"
         payload = {
             "continuation-key": continuation_key,
             "configuration": configuration,
@@ -617,7 +634,7 @@ class CircleCI:
         :param scope: scope (dict)
         :return: response
         """
-        endpoint = f"/api/v2/webhook"
+        endpoint = "/api/v2/webhook"
         payload = {
             "name": name,
             "events": events,
@@ -927,3 +944,24 @@ class CircleCI:
             "advanced": settings
         }
         return self._patch(endpoint, payload)
+
+    # -------------------------------- Custom Methods -------------------------------- #
+
+    @response_validation
+    def get_last_build_artifacts_by_project_name(self, project_slug: str,
+                                                 branch: str) -> requests.Response:
+        """
+        Get build artifacts by project name.
+
+        Args:
+            project_slug (str): project slug
+            branch (str): branch name
+
+        Returns:
+            requests.Response: build artifacts urls
+        """
+        pipeline_id = self.get_all_pipelines_for_project(project_slug,
+                                                         branch=branch).json()['items'][0]['id']
+        workflow_id = self.get_pipeline_workflow_by_id(pipeline_id).json()['items'][0]['id']
+        job_number = self.get_workflow_jobs(workflow_id).json()['items'][0]['job_number']
+        return self.get_job_artifacts(project_slug, job_number).json()

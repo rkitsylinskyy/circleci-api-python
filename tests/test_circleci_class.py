@@ -1,3 +1,4 @@
+""" Test cases for the CircleCI class """
 import unittest
 from unittest.mock import patch, Mock
 
@@ -5,11 +6,24 @@ from circleci import CircleCIError
 from circleci.client import CircleCI
 
 
+# pylint: disable=protected-access
 class TestCircleCIClient(unittest.TestCase):
+    """
+    Test cases for the CircleCI class
+    """
 
     # --------------------------------- GET REQUEST ---------------------------------
     @patch('requests.get')
     def test_get_request_successful(self, mock_get):
+        """
+        Test a successful GET request
+
+        Args:
+            mock_get (Mock): Mock object for the requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"key": "value"}
@@ -23,6 +37,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.get')
     def test_get_request_not_found(self, mock_get):
+        """
+        Test a GET request that returns a 404
+
+        Args:
+            mock_get (Mock): Mock object for the requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Not Found"}
@@ -36,6 +59,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.get')
     def test_get_request_server_error(self, mock_get):
+        """
+        Test a GET request that returns a 500
+
+        Args:
+            mock_get (Mock): Mock object for the requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -50,6 +82,15 @@ class TestCircleCIClient(unittest.TestCase):
     # --------------------------------- POST REQUEST ---------------------------------
     @patch('requests.post')
     def test_post_request_successful(self, mock_post):
+        """
+        Test a successful POST request
+
+        Args:
+            mock_post (Mock): Mock object for the requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 201
         mock_response.json.return_value = {"key": "value"}
@@ -63,6 +104,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.post')
     def test_post_request_no_payload(self, mock_post):
+        """
+        Test a POST request with no payload
+
+        Args:
+            mock_post (Mock): Mock object for the requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"key": "value"}
@@ -76,6 +126,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.post')
     def test_post_request_server_error(self, mock_post):
+        """
+        Test a POST request that returns a 500
+
+        Args:
+            mock_post (Mock): Mock object for the requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -91,6 +150,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.delete')
     def test_delete_request_successful(self, mock_delete):
+        """
+        Test a successful DELETE request
+
+        Args:
+            mock_delete (Mock): Mock object for the requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 204
         mock_delete.return_value = mock_response
@@ -102,6 +170,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.delete')
     def test_delete_request_not_found(self, mock_delete):
+        """
+        Test a DELETE request that returns a 404
+
+        Args:
+            mock_delete (Mock): Mock object for the requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Not Found"}
@@ -115,6 +192,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.delete')
     def test_delete_request_server_error(self, mock_delete):
+        """
+        Test a DELETE request that returns a 500
+
+        Args:
+            mock_delete (Mock): Mock object for the requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -130,6 +216,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.patch')
     def test_patch_request_successful(self, mock_patch):
+        """
+        Test a successful PATCH request
+
+        Args:
+            mock_patch (Mock): Mock object for the requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"key": "value"}
@@ -143,6 +238,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.patch')
     def test_patch_request_not_found(self, mock_patch):
+        """
+        Test a PATCH request that returns a 404
+
+        Args:
+            mock_patch (Mock): Mock object for the requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Not Found"}
@@ -156,6 +260,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.patch')
     def test_patch_request_server_error(self, mock_patch):
+        """
+        Test a PATCH request that returns a 500
+
+        Args:
+            mock_patch (Mock): Mock object for the requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -171,6 +284,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.put')
     def test_put_request_successful(self, mock_put):
+        """
+        Test a successful PUT request
+
+        Args:
+            mock_put (Mock): Mock object for the requests.put
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"key": "value"}
@@ -184,6 +306,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.put')
     def test_put_request_not_found(self, mock_put):
+        """
+        Test a PUT request that returns a 404
+
+        Args:
+            mock_put (Mock): Mock object for the requests.put
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Not Found"}
@@ -197,6 +328,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('requests.put')
     def test_put_request_server_error(self, mock_put):
+        """
+        Test a PUT request that returns a 500
+
+        Args:
+            mock_put (Mock): Mock object for the requests.put
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -212,6 +352,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('circleci.client.dict_to_circleci_resource')
     def test_response_validation_successful_dict(self, mock_dict_to_circleci_resource):
+        """
+        Test the response_validation decorator with a successful response
+
+        Args:
+            mock_dict_to_circleci_resource (Mock): Mock object for the dict_to_circleci_resource
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"key": "value"}
@@ -233,6 +382,15 @@ class TestCircleCIClient(unittest.TestCase):
 
     @patch('circleci.client.dict_to_circleci_resource')
     def test_response_validation_successful_list(self, mock_dict_to_circleci_resource):
+        """
+        Test the response_validation decorator with a successful response
+
+        Args:
+            mock_dict_to_circleci_resource (Mock): Mock object for the dict_to_circleci_resource
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = [{"key": "value"}]
@@ -253,6 +411,12 @@ class TestCircleCIClient(unittest.TestCase):
                                     "metadata": {"status_code": 200, "url": "http://example.com"}})
 
     def test_response_validation_failure(self):
+        """
+        Test the response_validation decorator with a failed response
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 400
         mock_response.json.return_value = {"message": "Bad Request"}

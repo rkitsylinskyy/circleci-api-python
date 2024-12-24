@@ -1,0 +1,11 @@
+[MASTER]
+
+[MESSAGES CONTROL]
+disable=W0703, R0903, R1732
+
+[FORMAT]
+max-line-length=100
+max-public-methods=100
+max-attributes=10
+max-args=10
+max-positional-arguments=10

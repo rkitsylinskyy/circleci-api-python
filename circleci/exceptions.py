@@ -1,3 +1,4 @@
+""" Exceptions for the CircleCI API client. """
 from __future__ import annotations
 
 import tempfile
@@ -20,12 +21,16 @@ class CircleCIError(Exception):
         """
         Creates a CircleCIError.
 
-        :param text: message for the error
-        :param status_code: status code for the error
-        :param url: url related to the error
-        :param request: request made related to the error
-        :param response: response received related to the error
-        :param log_to_tempfile: log to tempfile
+        Args:
+            text (str): The error message.
+            status_code (int): The HTTP status code.
+            url (str): The URL of the request.
+            request (Response): The request object.
+            response (Response): The response object.
+            log_to_tempfile (bool): A flag to determine if the error should be logged to a tempfile.
+
+        Returns:
+            CircleCIError: The CircleCIError instance.
         """
         self.status_code = status_code
         self.text = text
@@ -53,7 +58,7 @@ class CircleCIError(Exception):
 
         if self.log_to_tempfile:
             _, file_name = tempfile.mkstemp(suffix=".tmp", prefix="circlecierror-")
-            with open(file_name, "w") as f:
+            with open(file_name, "w", encoding="utf-8") as f:
                 message += f" details: {file_name}"
                 f.write(details)
         else:
