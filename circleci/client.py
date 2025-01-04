@@ -9,9 +9,10 @@ import logging as _log
 from functools import wraps
 
 import requests
+from requests import Response
 
 from circleci.exceptions import CircleCIError
-from circleci.resources import dict_to_circleci_resource
+from circleci.resources import dict_to_circleci_resource, CircleCIPropertyHolder
 from circleci.utils import validate_login
 
 LOG = _log.getLogger("circleci")
@@ -149,7 +150,7 @@ class CircleCI:
     @response_validation
     def create_context(self, name: str,
                        owner_id: str,
-                       owner_type: str = "organization") -> requests.Response:
+                       owner_type: str = "organization") -> CircleCIPropertyHolder or Response:
         """
         Create a new context.
         :param name: context name (str)
@@ -174,7 +175,7 @@ class CircleCI:
         return self._post(endpoint, payload)
 
     @response_validation
-    def list_contexts(self) -> requests.Response:
+    def list_contexts(self) -> CircleCIPropertyHolder or Response:
         """
         List all contexts for the owner.
         :return: list of contexts
@@ -183,7 +184,7 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def delete_context(self, context_id: str) -> requests.Response:
+    def delete_context(self, context_id: str) -> CircleCIPropertyHolder or Response:
         """
         Delete a context.
         :param context_id: context id (uuid)
@@ -193,7 +194,7 @@ class CircleCI:
         return self._delete(endpoint)
 
     @response_validation
-    def get_context(self, context_id: str) -> requests.Response:
+    def get_context(self, context_id: str) -> CircleCIPropertyHolder or Response:
         """
         Get a context.
         :param context_id: context id (uuid)
@@ -203,8 +204,9 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def list_environment_variables_in_context(self, context_id: str,
-                                              page_token: str or None = None) -> requests.Response:
+    def list_environment_variables_in_context(
+            self, context_id: str,
+            page_token: str or None = None) -> CircleCIPropertyHolder or Response:
         """
         List all environment variables in a context.
         :param context_id: context id
@@ -216,8 +218,9 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def remove_environment_variable_from_context(self, context_id: str,
-                                                 env_var_name: str) -> requests.Response:
+    def remove_environment_variable_from_context(
+            self, context_id: str,
+            env_var_name: str) -> CircleCIPropertyHolder or Response:
         """
         Remove an environment variable from a context.
         :param context_id: context id (uuid)
@@ -230,7 +233,7 @@ class CircleCI:
     @response_validation
     def add_or_update_env_variable(self, context_id: str,
                                    env_var_name: str,
-                                   env_var_value: str) -> requests.Response:
+                                   env_var_value: str) -> CircleCIPropertyHolder or Response:
         """
         Add or update an environment variable in a context.
         :param context_id: context id (uuid)
@@ -245,7 +248,7 @@ class CircleCI:
         return self._put(endpoint, payload)
 
     @response_validation
-    def get_context_restrictions(self, context_id: str) -> requests.Response:
+    def get_context_restrictions(self, context_id: str) -> CircleCIPropertyHolder or Response:
         """
         Get the restrictions for a context.
         :param context_id: context id (uuid)
@@ -257,7 +260,7 @@ class CircleCI:
     @response_validation
     def create_context_restriction(self, context_id: str,
                                    restriction_type: str,
-                                   restriction_value: str) -> requests.Response:
+                                   restriction_value: str) -> CircleCIPropertyHolder or Response:
         """
         Create a context restriction.
         :param context_id: context id (uuid)
@@ -274,7 +277,7 @@ class CircleCI:
 
     @response_validation
     def delete_context_restriction(self, context_id: str,
-                                   restriction_id: str) -> requests.Response:
+                                   restriction_id: str) -> CircleCIPropertyHolder or Response:
         """
         Delete a context restriction.
         :param context_id: context id (uuid)
@@ -287,7 +290,7 @@ class CircleCI:
     # -------------------------------- User Endpoints -------------------------------- #
 
     @response_validation
-    def get_current_user_information(self) -> requests.Response:
+    def get_current_user_information(self) -> CircleCIPropertyHolder or Response:
         """
         Get information about the user.
         :return: user information
@@ -296,7 +299,7 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def get_user_projects(self) -> requests.Response:
+    def get_user_projects(self) -> CircleCIPropertyHolder or Response:
         """
         Get all projects for the user.
         :return: user projects
@@ -305,7 +308,7 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def get_user_collaborations(self) -> requests.Response:
+    def get_user_collaborations(self) -> CircleCIPropertyHolder or Response:
         """
         Get all collaborations for the user.
         :return: user collaborations
@@ -314,7 +317,7 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def get_user_information(self, user_id: str) -> requests.Response:
+    def get_user_information(self, user_id: str) -> CircleCIPropertyHolder or Response:
         """
         Get information about a user.
         :param user_id: user id (uuid)
@@ -328,7 +331,7 @@ class CircleCI:
     @response_validation
     def get_list_of_pipelines_user_follow(self, org_slug: str or None = None,
                                           page_token: str or None = None,
-                                          mine: bool = False) -> requests.Response:
+                                          mine: bool = False) -> CircleCIPropertyHolder or Response:
         """
         Get list of pipelines user is following.
         :return: list of pipelines
@@ -345,7 +348,7 @@ class CircleCI:
     @response_validation
     def continue_pipeline(self, continuation_key: str,
                           configuration: str,
-                          parameters: dict) -> requests.Response:
+                          parameters: dict) -> CircleCIPropertyHolder or Response:
         """
         Continue a pipeline from the setup phase.
         :param continuation_key: continuation key (str)
@@ -362,7 +365,7 @@ class CircleCI:
         return self._post(endpoint, payload)
 
     @response_validation
-    def get_pipeline_by_id(self, pipeline_id: str) -> requests.Response:
+    def get_pipeline_by_id(self, pipeline_id: str) -> CircleCIPropertyHolder or Response:
         """
         Get a pipeline by id.
         :param pipeline_id: pipeline id (uuid)
@@ -372,7 +375,7 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def get_pipeline_config_by_id(self, pipeline_id: str) -> requests.Response:
+    def get_pipeline_config_by_id(self, pipeline_id: str) -> CircleCIPropertyHolder or Response:
         """
         Get the configuration for a pipeline by id.
         :param pipeline_id: pipeline id (uuid)
@@ -382,7 +385,7 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def get_pipeline_values_by_id(self, pipeline_id: str) -> requests.Response:
+    def get_pipeline_values_by_id(self, pipeline_id: str) -> CircleCIPropertyHolder or Response:
         """
         Get the values for a pipeline by id.
         :param pipeline_id: pipeline id (uuid)
@@ -392,8 +395,9 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def get_pipeline_workflow_by_id(self, pipeline_id: str,
-                                    page_token: str or None = None) -> requests.Response:
+    def get_pipeline_workflow_by_id(
+            self, pipeline_id: str,
+            page_token: str or None = None) -> CircleCIPropertyHolder or Response:
         """
         Get the workflow for a pipeline by id.
         :param pipeline_id: pipeline id (uuid)
@@ -408,7 +412,7 @@ class CircleCI:
     def trigger_pipeline(self, project_slug: str,
                          branch: str = None,
                          tag: str = None,
-                         parameters: dict = None) -> requests.Response:
+                         parameters: dict = None) -> CircleCIPropertyHolder or Response:
         """
         Trigger a pipeline.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -428,9 +432,10 @@ class CircleCI:
         return self._post(endpoint, payload)
 
     @response_validation
-    def get_all_pipelines_for_project(self, project_slug: str,
-                                      page_token: str or None = None,
-                                      branch: str or None = None) -> requests.Response:
+    def get_all_pipelines_for_project(
+            self, project_slug: str,
+            page_token: str or None = None,
+            branch: str or None = None) -> CircleCIPropertyHolder or Response:
         """
         Get all pipelines for a project.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -448,8 +453,9 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def get_pipeline_triggered_by_current_user(self, project_slug: str,
-                                               page_token: str or None = None) -> requests.Response:
+    def get_pipeline_triggered_by_current_user(
+            self, project_slug: str,
+            page_token: str or None = None) -> CircleCIPropertyHolder or Response:
         """
         Get pipeline triggered by the current user.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -462,7 +468,7 @@ class CircleCI:
 
     @response_validation
     def get_pipeline_by_number(self, project_slug: str,
-                               pipeline_number: int) -> requests.Response:
+                               pipeline_number: int) -> CircleCIPropertyHolder or Response:
         """
         Get a pipeline by number.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -475,7 +481,7 @@ class CircleCI:
     # -------------------------------- Job Endpoints -------------------------------- #
 
     @response_validation
-    def cancel_job_by_id(self, job_id: str) -> requests.Response:
+    def cancel_job_by_id(self, job_id: str) -> CircleCIPropertyHolder or Response:
         """
         Cancel a job by id.
         :param job_id: job id (uuid)
@@ -486,7 +492,7 @@ class CircleCI:
 
     @response_validation
     def get_job_by_number(self, project_slug: str,
-                          job_number: int) -> requests.Response:
+                          job_number: int) -> CircleCIPropertyHolder or Response:
         """
         Get a job by number.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -498,7 +504,7 @@ class CircleCI:
 
     @response_validation
     def cancel_job_by_number(self, project_slug: str,
-                             job_number: int) -> requests.Response:
+                             job_number: int) -> CircleCIPropertyHolder or Response:
         """
         Cancel a job by number.
         :param project_slug:
@@ -510,7 +516,7 @@ class CircleCI:
 
     @response_validation
     def get_job_artifacts(self, project_slug: str,
-                          job_number: str) -> requests.Response:
+                          job_number: str) -> CircleCIPropertyHolder or Response:
         """
         Get job artifacts.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -522,7 +528,7 @@ class CircleCI:
 
     @response_validation
     def get_job_metadata(self, project_slug: str,
-                         job_number: str) -> requests.Response:
+                         job_number: str) -> CircleCIPropertyHolder or Response:
         """
         Get job metadata.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -535,7 +541,7 @@ class CircleCI:
     # -------------------------------- Workflow Endpoints -------------------------------- #
 
     @response_validation
-    def get_workflow_by_id(self, workflow_id: str) -> requests.Response:
+    def get_workflow_by_id(self, workflow_id: str) -> CircleCIPropertyHolder or Response:
         """
         Get a workflow by id.
         :param workflow_id: workflow id (uuid)
@@ -545,7 +551,8 @@ class CircleCI:
         return self._get(endpoint)
 
     @response_validation
-    def approve_workflow_job(self, workflow_id: str, job_id: str) -> requests.Response:
+    def approve_workflow_job(self, workflow_id: str,
+                             job_id: str) -> CircleCIPropertyHolder or Response:
         """
         Approve a workflow job.
         :param workflow_id: workflow id (uuid)
@@ -556,7 +563,7 @@ class CircleCI:
         return self._post(endpoint)
 
     @response_validation
-    def cancel_workflow(self, workflow_id: str) -> requests.Response:
+    def cancel_workflow(self, workflow_id: str) -> CircleCIPropertyHolder or Response:
         """
         Cancel a running workflow.
         :param workflow_id: workflow id (uuid)
@@ -567,7 +574,7 @@ class CircleCI:
 
     @response_validation
     def get_workflow_jobs(self, workflow_id: str,
-                          page_token: str or None = None) -> requests.Response:
+                          page_token: str or None = None) -> CircleCIPropertyHolder or Response:
         """
         Get all jobs for a workflow.
         :param workflow_id: workflow id (uuid)
@@ -583,7 +590,7 @@ class CircleCI:
                        enable_ssh: bool = False,
                        from_failed: bool = False,
                        jobs: list or None = None,
-                       sparse_tree: bool = False) -> requests.Response:
+                       sparse_tree: bool = False) -> CircleCIPropertyHolder or Response:
         """
         Rerun a workflow.
         :param workflow_id: workflow id (uuid)
@@ -607,7 +614,7 @@ class CircleCI:
 
     @response_validation
     def get_webhooks(self, scope_id: str,
-                     scope_type: str) -> requests.Response:
+                     scope_type: str) -> CircleCIPropertyHolder or Response:
         """
         Get webhooks.
         :param scope_id: scope id (uuid)
@@ -623,7 +630,7 @@ class CircleCI:
                                 url: str,
                                 verify_tls: bool,
                                 signing_secret: str,
-                                scope: dict) -> requests.Response:
+                                scope: dict) -> CircleCIPropertyHolder or Response:
         """
         Create an outbound webhook.
         :param name: name (str)
@@ -646,7 +653,7 @@ class CircleCI:
         return self._post(endpoint, payload)
 
     @response_validation
-    def get_webhook_by_id(self, webhook_id: str) -> requests.Response:
+    def get_webhook_by_id(self, webhook_id: str) -> CircleCIPropertyHolder or Response:
         """
         Get a webhook by id.
         :param webhook_id: webhook id (uuid)
@@ -661,7 +668,7 @@ class CircleCI:
                              events: list,
                              url: str,
                              verify_tls: bool,
-                             signing_secret: str) -> requests.Response:
+                             signing_secret: str) -> CircleCIPropertyHolder or Response:
         """
         Update a webhook by id.
         :param webhook_id: webhook id (uuid)
@@ -683,7 +690,7 @@ class CircleCI:
         return self._put(endpoint, payload)
 
     @response_validation
-    def delete_webhook_by_id(self, webhook_id: str) -> requests.Response:
+    def delete_webhook_by_id(self, webhook_id: str) -> CircleCIPropertyHolder or Response:
         """
         Delete a webhook by id.
         :param webhook_id: webhook id (uuid)
@@ -696,7 +703,7 @@ class CircleCI:
 
     @response_validation
     def delete_org_level_claims(self, org_id: str,
-                                claims: str) -> requests.Response:
+                                claims: str) -> CircleCIPropertyHolder or Response:
         """
         Delete organization level claims.
         :param org_id: organization id (uuid)
@@ -707,7 +714,7 @@ class CircleCI:
         return self._delete(endpoint)
 
     @response_validation
-    def get_org_level_claims(self, org_id: str) -> requests.Response:
+    def get_org_level_claims(self, org_id: str) -> CircleCIPropertyHolder or Response:
         """
         Get organization level claims.
         :param org_id: organization id (uuid)
@@ -719,7 +726,7 @@ class CircleCI:
     @response_validation
     def create_or_update_org_level_claims(self, org_id: str,
                                           audience: list,
-                                          ttl: str) -> requests.Response:
+                                          ttl: str) -> CircleCIPropertyHolder or Response:
         """
         Create or update organization level claims.
         :param org_id: organization id (uuid)
@@ -738,7 +745,7 @@ class CircleCI:
     @response_validation
     def delete_project_level_claims(self, org_id: str,
                                     project_id: str,
-                                    claims: str) -> requests.Response:
+                                    claims: str) -> CircleCIPropertyHolder or Response:
         """
         Delete project level claims.
         :param org_id: organization id (uuid)
@@ -751,7 +758,7 @@ class CircleCI:
 
     @response_validation
     def get_project_level_claims(self, org_id: str,
-                                 project_id: str) -> requests.Response:
+                                 project_id: str) -> CircleCIPropertyHolder or Response:
         """
         Get project level claims.
         :param org_id: organization id (uuid)
@@ -765,7 +772,7 @@ class CircleCI:
     def create_or_update_project_level_claims(self, org_id: str,
                                               project_id: str,
                                               audience: list,
-                                              ttl: str) -> requests.Response:
+                                              ttl: str) -> CircleCIPropertyHolder or Response:
         """
         Create or update project level claims.
         :param org_id: organization id (uuid)
@@ -785,7 +792,7 @@ class CircleCI:
     # -------------------------------- Project Endpoints -------------------------------- #
 
     @response_validation
-    def get_project(self, project_slug: str) -> requests.Response:
+    def get_project(self, project_slug: str) -> CircleCIPropertyHolder or Response:
         """
         Get a project.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -796,7 +803,7 @@ class CircleCI:
 
     @response_validation
     def create_checkout_key(self, project_slug: str,
-                            key_type: str) -> requests.Response:
+                            key_type: str) -> CircleCIPropertyHolder or Response:
         """
         Create a checkout key.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -811,7 +818,7 @@ class CircleCI:
 
     @response_validation
     def get_all_checkout_keys(self, project_slug: str,
-                              digest: str) -> requests.Response:
+                              digest: str) -> CircleCIPropertyHolder or Response:
         """
         Get all checkout keys.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -824,7 +831,7 @@ class CircleCI:
 
     @response_validation
     def delete_checkout_key(self, project_slug: str,
-                            fingerprint: str) -> requests.Response:
+                            fingerprint: str) -> CircleCIPropertyHolder or Response:
         """
         Delete a checkout key.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -836,7 +843,7 @@ class CircleCI:
 
     @response_validation
     def get_checkout_key(self, project_slug: str,
-                         fingerprint: str) -> requests.Response:
+                         fingerprint: str) -> CircleCIPropertyHolder or Response:
         """
         Get a checkout key.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -849,7 +856,7 @@ class CircleCI:
     @response_validation
     def create_env_var(self, project_slug: str,
                        name: str,
-                       value: str) -> requests.Response:
+                       value: str) -> CircleCIPropertyHolder or Response:
         """
         Create an environment variable.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -865,7 +872,7 @@ class CircleCI:
         return self._post(endpoint, payload)
 
     @response_validation
-    def get_all_env_vars(self, project_slug: str) -> requests.Response:
+    def get_all_env_vars(self, project_slug: str) -> CircleCIPropertyHolder or Response:
         """
         Get all environment variables.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -876,7 +883,7 @@ class CircleCI:
 
     @response_validation
     def delete_env_var(self, project_slug: str,
-                       name: str) -> requests.Response:
+                       name: str) -> CircleCIPropertyHolder or Response:
         """
         Delete an environment variable.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -888,7 +895,7 @@ class CircleCI:
 
     @response_validation
     def get_masked_env_var(self, project_slug: str,
-                           name: str) -> requests.Response:
+                           name: str) -> CircleCIPropertyHolder or Response:
         """
         Get a masked environment variable.
         :param project_slug: vcs-slug/org-name/repo-name | e.g.: gh/CircleCI-Public/api-preview-docs
@@ -901,7 +908,7 @@ class CircleCI:
     @response_validation
     def create_new_project(self, vcs_type: str,
                            org_name: str,
-                           repo_name: str) -> requests.Response:
+                           repo_name: str) -> CircleCIPropertyHolder or Response:
         """
         Create a new project.
         :param vcs_type: vcs type (str)
@@ -915,7 +922,7 @@ class CircleCI:
     @response_validation
     def get_project_setting(self, vcs_type: str,
                             org_name: str,
-                            repo_name: str) -> requests.Response:
+                            repo_name: str) -> CircleCIPropertyHolder or Response:
         """
         Returns a list of the advanced settings for a CircleCI project.
         :param vcs_type: vcs type (str)
@@ -930,7 +937,7 @@ class CircleCI:
     def update_project_setting(self, vcs_type: str,
                                org_name: str,
                                repo_name: str,
-                               settings: dict) -> requests.Response:
+                               settings: dict) -> CircleCIPropertyHolder or Response:
         """
         Update the advanced settings for a CircleCI project.
         :param vcs_type: vcs type (str)
@@ -947,9 +954,8 @@ class CircleCI:
 
     # -------------------------------- Custom Methods -------------------------------- #
 
-    @response_validation
     def get_last_build_artifacts_by_project_name(self, project_slug: str,
-                                                 branch: str) -> requests.Response:
+                                                 branch: str) -> CircleCIPropertyHolder or Response:
         """
         Get build artifacts by project name.
 
@@ -958,10 +964,10 @@ class CircleCI:
             branch (str): branch name
 
         Returns:
-            requests.Response: build artifacts urls
+            CircleCIPropertyHolder or Response: build artifacts urls
         """
         pipeline_id = self.get_all_pipelines_for_project(project_slug,
-                                                         branch=branch).json()['items'][0]['id']
-        workflow_id = self.get_pipeline_workflow_by_id(pipeline_id).json()['items'][0]['id']
-        job_number = self.get_workflow_jobs(workflow_id).json()['items'][0]['job_number']
-        return self.get_job_artifacts(project_slug, job_number).json()
+                                                         branch=branch).items[0].id
+        workflow_id = self.get_pipeline_workflow_by_id(pipeline_id).items[0].id
+        job_number = self.get_workflow_jobs(workflow_id).items[0].job_number
+        return self.get_job_artifacts(project_slug, job_number)

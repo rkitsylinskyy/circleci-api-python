@@ -10,6 +10,12 @@ class CircleCIPropertyHolder:
         for key, value in kwargs.items():
             setattr(self, key, value)
 
+    def __getattr__(self, name: str) -> any:
+        """
+        Handle dynamic attributes.
+        """
+        return self.__dict__.get(name, None)
+
 
 def dict_to_circleci_resource(data, is_first_iteration=True):
     """
