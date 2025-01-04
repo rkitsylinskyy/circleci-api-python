@@ -1672,7 +1672,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_job_by_number("gh/CircleCI-Public/api-preview-docs", 999)
 
     @patch('requests.get')
-    def test_get_job_by_number_server_error(self, mock_get):
+    def test_get_job_by_number_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get job by number with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -1683,7 +1692,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_job_by_number("gh/CircleCI-Public/api-preview-docs", 1)
 
     @patch('requests.post')
-    def test_cancel_job_by_number_successful(self, mock_post):
+    def test_cancel_job_by_number_successful(self, mock_post: Mock) -> None:
+        """
+        Test cancel job by number successful
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Job cancelled successfully"}
@@ -1696,7 +1714,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Job cancelled successfully"})
 
     @patch('requests.post')
-    def test_cancel_job_by_number_not_found(self, mock_post):
+    def test_cancel_job_by_number_not_found(self, mock_post: Mock) -> None:
+        """
+        Test cancel job by number not found
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Job not found"}
@@ -1707,7 +1734,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.cancel_job_by_number("gh/CircleCI-Public/api-preview-docs", 999)
 
     @patch('requests.post')
-    def test_cancel_job_by_number_server_error(self, mock_post):
+    def test_cancel_job_by_number_server_error(self, mock_post: Mock) -> None:
+        """
+        Test cancel job by number with server error
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -1718,7 +1754,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.cancel_job_by_number("gh/CircleCI-Public/api-preview-docs", 1)
 
     @patch('requests.get')
-    def test_get_job_artifacts_successful(self, mock_get):
+    def test_get_job_artifacts_successful(self, mock_get: Mock) -> None:
+        """
+        Test get job artifacts successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = [{"path": "artifact_path", "url": "artifact_url"}]
@@ -1732,7 +1777,16 @@ class TestCircleCIClient(unittest.TestCase):
                          {'response': [{'path': 'artifact_path', 'url': 'artifact_url'}]})
 
     @patch('requests.get')
-    def test_get_job_artifacts_not_found(self, mock_get):
+    def test_get_job_artifacts_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get job artifacts not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Artifacts not found"}
@@ -1743,7 +1797,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_job_artifacts("gh/CircleCI-Public/api-preview-docs", "999")
 
     @patch('requests.get')
-    def test_get_job_artifacts_server_error(self, mock_get):
+    def test_get_job_artifacts_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get job artifacts with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -1754,7 +1817,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_job_artifacts("gh/CircleCI-Public/api-preview-docs", "1")
 
     @patch('requests.get')
-    def test_get_job_metadata_successful(self, mock_get):
+    def test_get_job_metadata_successful(self, mock_get: Mock) -> None:
+        """
+        Test get job metadata successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"tests": ["test1", "test2"]}
@@ -1767,7 +1839,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"tests": ["test1", "test2"]})
 
     @patch('requests.get')
-    def test_get_job_metadata_not_found(self, mock_get):
+    def test_get_job_metadata_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get job metadata not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Job metadata not found"}
@@ -1778,7 +1859,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_job_metadata("gh/CircleCI-Public/api-preview-docs", "999")
 
     @patch('requests.get')
-    def test_get_job_metadata_server_error(self, mock_get):
+    def test_get_job_metadata_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get job metadata with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -1789,7 +1879,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_job_metadata("gh/CircleCI-Public/api-preview-docs", "1")
 
     @patch('requests.get')
-    def test_get_workflow_by_id_successful(self, mock_get):
+    def test_get_workflow_by_id_successful(self, mock_get: Mock) -> None:
+        """
+        Test get workflow by id successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"id": "workflow_id", "name": "workflow_name"}
@@ -1802,7 +1901,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"id": "workflow_id", "name": "workflow_name"})
 
     @patch('requests.get')
-    def test_get_workflow_by_id_not_found(self, mock_get):
+    def test_get_workflow_by_id_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get workflow by id not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Workflow not found"}
@@ -1813,7 +1921,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_workflow_by_id("invalid_workflow_id")
 
     @patch('requests.get')
-    def test_get_workflow_by_id_server_error(self, mock_get):
+    def test_get_workflow_by_id_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get workflow by id with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -1824,7 +1941,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_workflow_by_id("workflow_id")
 
     @patch('requests.post')
-    def test_approve_workflow_job_successful(self, mock_post):
+    def test_approve_workflow_job_successful(self, mock_post: Mock) -> None:
+        """
+        Test approve workflow job successful
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Job approved successfully"}
@@ -1837,7 +1963,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Job approved successfully"})
 
     @patch('requests.post')
-    def test_approve_workflow_job_not_found(self, mock_post):
+    def test_approve_workflow_job_not_found(self, mock_post: Mock) -> None:
+        """
+        Test approve workflow job not found
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Workflow or job not found"}
@@ -1848,7 +1983,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.approve_workflow_job("invalid_workflow_id", "invalid_job_id")
 
     @patch('requests.post')
-    def test_approve_workflow_job_server_error(self, mock_post):
+    def test_approve_workflow_job_server_error(self, mock_post: Mock) -> None:
+        """
+        Test approve workflow job with server error
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -1859,7 +2003,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.approve_workflow_job("workflow_id", "job_id")
 
     @patch('requests.post')
-    def test_cancel_workflow_successful(self, mock_post):
+    def test_cancel_workflow_successful(self, mock_post: Mock) -> None:
+        """
+        Test cancel workflow successful
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Workflow cancelled successfully"}
@@ -1872,7 +2025,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Workflow cancelled successfully"})
 
     @patch('requests.post')
-    def test_cancel_workflow_not_found(self, mock_post):
+    def test_cancel_workflow_not_found(self, mock_post: Mock) -> None:
+        """
+        Test cancel workflow not found
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Workflow not found"}
@@ -1883,7 +2045,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.cancel_workflow("invalid_workflow_id")
 
     @patch('requests.post')
-    def test_cancel_workflow_server_error(self, mock_post):
+    def test_cancel_workflow_server_error(self, mock_post: Mock) -> None:
+        """
+        Test cancel workflow with server error
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -1894,7 +2065,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.cancel_workflow("workflow_id")
 
     @patch('requests.get')
-    def test_get_all_jobs_for_workflow_successful(self, mock_get):
+    def test_get_all_jobs_for_workflow_successful(self, mock_get: Mock) -> None:
+        """
+        Test get all jobs for workflow successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"jobs": ["job1", "job2"]}
@@ -1907,7 +2087,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"jobs": ["job1", "job2"]})
 
     @patch('requests.get')
-    def test_get_all_jobs_for_workflow_with_page_token(self, mock_get):
+    def test_get_all_jobs_for_workflow_with_page_token(self, mock_get: Mock) -> None:
+        """
+        Test get all jobs for workflow with page token
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"jobs": ["job1"]}
@@ -1920,7 +2109,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"jobs": ["job1"]})
 
     @patch('requests.get')
-    def test_get_all_jobs_for_workflow_not_found(self, mock_get):
+    def test_get_all_jobs_for_workflow_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get all jobs for workflow not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Workflow not found"}
@@ -1931,7 +2129,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_workflow_jobs("invalid_workflow_id")
 
     @patch('requests.get')
-    def test_get_all_jobs_for_workflow_server_error(self, mock_get):
+    def test_get_all_jobs_for_workflow_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get all jobs for workflow with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -1942,7 +2149,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_workflow_jobs("workflow_id")
 
     @patch('requests.post')
-    def test_rerun_workflow_successful(self, mock_post):
+    def test_rerun_workflow_successful(self, mock_post: Mock) -> None:
+        """
+        Test rerun workflow successful
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Workflow rerun successfully"}
@@ -1955,7 +2171,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Workflow rerun successfully"})
 
     @patch('requests.post')
-    def test_rerun_workflow_with_ssh(self, mock_post):
+    def test_rerun_workflow_with_ssh(self, mock_post: Mock) -> None:
+        """
+        Test rerun workflow with SSH
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Workflow rerun with SSH successfully"}
@@ -1968,7 +2193,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Workflow rerun with SSH successfully"})
 
     @patch('requests.post')
-    def test_rerun_workflow_from_failed(self, mock_post):
+    def test_rerun_workflow_from_failed(self, mock_post: Mock) -> None:
+        """
+        Test rerun workflow from failed
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Workflow rerun from failed successfully"}
@@ -1981,7 +2215,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Workflow rerun from failed successfully"})
 
     @patch('requests.post')
-    def test_rerun_workflow_with_jobs(self, mock_post):
+    def test_rerun_workflow_with_jobs(self, mock_post: Mock) -> None:
+        """
+        Test rerun workflow with jobs
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {
@@ -1996,7 +2239,16 @@ class TestCircleCIClient(unittest.TestCase):
                          {"message": "Workflow rerun with specific jobs successfully"})
 
     @patch('requests.post')
-    def test_rerun_workflow_not_found(self, mock_post):
+    def test_rerun_workflow_not_found(self, mock_post: Mock) -> None:
+        """
+        Test rerun workflow not found
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Workflow not found"}
@@ -2007,7 +2259,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.rerun_workflow("invalid_workflow_id")
 
     @patch('requests.post')
-    def test_rerun_workflow_server_error(self, mock_post):
+    def test_rerun_workflow_server_error(self, mock_post: Mock) -> None:
+        """
+        Test rerun workflow with server error
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2018,7 +2279,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.rerun_workflow("workflow_id")
 
     @patch('requests.get')
-    def test_get_webhooks_successful(self, mock_get):
+    def test_get_webhooks_successful(self, mock_get: Mock) -> None:
+        """
+        Test get webhooks successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"webhooks": ["webhook1", "webhook2"]}
@@ -2031,7 +2301,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"webhooks": ["webhook1", "webhook2"]})
 
     @patch('requests.get')
-    def test_get_webhooks_not_found(self, mock_get):
+    def test_get_webhooks_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get webhooks not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Webhooks not found"}
@@ -2042,7 +2321,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_webhooks("invalid_scope_id", "scope_type")
 
     @patch('requests.get')
-    def test_get_webhooks_server_error(self, mock_get):
+    def test_get_webhooks_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get webhooks with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2053,7 +2341,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_webhooks("scope_id", "scope_type")
 
     @patch('requests.post')
-    def test_create_outbound_webhook_successful(self, mock_post):
+    def test_create_outbound_webhook_successful(self, mock_post: Mock) -> None:
+        """
+        Test create outbound webhook successful
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Webhook created successfully"}
@@ -2073,7 +2370,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Webhook created successfully"})
 
     @patch('requests.post')
-    def test_create_outbound_webhook_invalid_scope(self, mock_post):
+    def test_create_outbound_webhook_invalid_scope(self, mock_post: Mock) -> None:
+        """
+        Test create outbound webhook with invalid scope
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 400
         mock_response.json.return_value = {"message": "Invalid scope"}
@@ -2091,7 +2397,16 @@ class TestCircleCIClient(unittest.TestCase):
             )
 
     @patch('requests.post')
-    def test_create_outbound_webhook_server_error(self, mock_post):
+    def test_create_outbound_webhook_server_error(self, mock_post: Mock) -> None:
+        """
+        Test create outbound webhook with server error
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2109,7 +2424,16 @@ class TestCircleCIClient(unittest.TestCase):
             )
 
     @patch('requests.get')
-    def test_get_webhook_by_id_successful(self, mock_get):
+    def test_get_webhook_by_id_successful(self, mock_get: Mock) -> None:
+        """
+        Test get webhook by id successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"id": "webhook_id", "name": "webhook_name"}
@@ -2122,7 +2446,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"id": "webhook_id", "name": "webhook_name"})
 
     @patch('requests.get')
-    def test_get_webhook_by_id_not_found(self, mock_get):
+    def test_get_webhook_by_id_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get webhook by id not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Webhook not found"}
@@ -2133,7 +2466,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_webhook_by_id("webhook_id")
 
     @patch('requests.get')
-    def test_get_webhook_by_id_server_error(self, mock_get):
+    def test_get_webhook_by_id_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get webhook by id with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2144,7 +2486,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_webhook_by_id("webhook_id")
 
     @patch('requests.put')
-    def test_update_webhook_by_id_successful(self, mock_put):
+    def test_update_webhook_by_id_successful(self, mock_put: Mock) -> None:
+        """
+        Test update webhook by id successful
+
+        Args:
+            mock_put (Mock): Mock object for requests.put
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Webhook updated successfully"}
@@ -2164,7 +2515,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Webhook updated successfully"})
 
     @patch('requests.put')
-    def test_update_webhook_by_id_not_found(self, mock_put):
+    def test_update_webhook_by_id_not_found(self, mock_put: Mock) -> None:
+        """
+        Test update webhook by id not found
+
+        Args:
+            mock_put (Mock): Mock object for requests.put
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Webhook not found"}
@@ -2182,7 +2542,16 @@ class TestCircleCIClient(unittest.TestCase):
             )
 
     @patch('requests.put')
-    def test_update_webhook_by_id_server_error(self, mock_put):
+    def test_update_webhook_by_id_server_error(self, mock_put: Mock) -> None:
+        """
+        Test update webhook by id with server error
+
+        Args:
+            mock_put (Mock): Mock object for requests.put
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2200,7 +2569,16 @@ class TestCircleCIClient(unittest.TestCase):
             )
 
     @patch('requests.delete')
-    def test_delete_webhook_by_id_successful(self, mock_delete):
+    def test_delete_webhook_by_id_successful(self, mock_delete: Mock) -> None:
+        """
+        Test delete webhook by id successful
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Webhook deleted successfully"}
@@ -2213,7 +2591,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Webhook deleted successfully"})
 
     @patch('requests.delete')
-    def test_delete_webhook_by_id_not_found(self, mock_delete):
+    def test_delete_webhook_by_id_not_found(self, mock_delete: Mock) -> None:
+        """
+        Test delete webhook by id not found
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Webhook not found"}
@@ -2224,7 +2611,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.delete_webhook_by_id("webhook_id")
 
     @patch('requests.delete')
-    def test_delete_webhook_by_id_server_error(self, mock_delete):
+    def test_delete_webhook_by_id_server_error(self, mock_delete: Mock) -> None:
+        """
+        Test delete webhook by id with server error
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2235,7 +2631,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.delete_webhook_by_id("webhook_id")
 
     @patch('requests.delete')
-    def test_delete_org_level_claims_successful(self, mock_delete):
+    def test_delete_org_level_claims_successful(self, mock_delete: Mock) -> None:
+        """
+        Test delete org level claims successful
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Claims deleted successfully"}
@@ -2248,7 +2653,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Claims deleted successfully"})
 
     @patch('requests.delete')
-    def test_delete_org_level_claims_not_found(self, mock_delete):
+    def test_delete_org_level_claims_not_found(self, mock_delete: Mock) -> None:
+        """
+        Test delete org level claims not found
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Organization not found"}
@@ -2259,7 +2673,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.delete_org_level_claims("org_id", "claim1,claim2")
 
     @patch('requests.delete')
-    def test_delete_org_level_claims_server_error(self, mock_delete):
+    def test_delete_org_level_claims_server_error(self, mock_delete: Mock) -> None:
+        """
+        Test delete org level claims with server error
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2270,7 +2693,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.delete_org_level_claims("org_id", "claim1,claim2")
 
     @patch('requests.get')
-    def test_get_org_level_claims_successful(self, mock_get):
+    def test_get_org_level_claims_successful(self, mock_get: Mock) -> None:
+        """
+        Test get org level claims successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"claims": ["claim1", "claim2"]}
@@ -2283,7 +2715,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"claims": ["claim1", "claim2"]})
 
     @patch('requests.get')
-    def test_get_org_level_claims_not_found(self, mock_get):
+    def test_get_org_level_claims_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get org level claims not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Organization not found"}
@@ -2294,7 +2735,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_org_level_claims("org_id")
 
     @patch('requests.get')
-    def test_get_org_level_claims_server_error(self, mock_get):
+    def test_get_org_level_claims_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get org level claims with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2305,7 +2755,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_org_level_claims("org_id")
 
     @patch('requests.patch')
-    def test_create_or_update_org_level_claims_successful(self, mock_patch):
+    def test_create_or_update_org_level_claims_successful(self, mock_patch: Mock) -> None:
+        """
+        Test create or update org level claims successful
+
+        Args:
+            mock_patch (Mock): Mock object for requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Claims created or updated successfully"}
@@ -2319,7 +2778,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Claims created or updated successfully"})
 
     @patch('requests.patch')
-    def test_create_or_update_org_level_claims_invalid_org(self, mock_patch):
+    def test_create_or_update_org_level_claims_invalid_org(self, mock_patch: Mock) -> None:
+        """
+        Test create or update org level claims with invalid
+
+        Args:
+            mock_patch (Mock): Mock object for requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 400
         mock_response.json.return_value = {"message": "Invalid organization"}
@@ -2331,7 +2799,16 @@ class TestCircleCIClient(unittest.TestCase):
                                                      "3600")
 
     @patch('requests.patch')
-    def test_create_or_update_org_level_claims_server_error(self, mock_patch):
+    def test_create_or_update_org_level_claims_server_error(self, mock_patch: Mock) -> None:
+        """
+        Test create or update org level claims with server error
+
+        Args:
+            mock_patch (Mock): Mock object for requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2342,7 +2819,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.create_or_update_org_level_claims("org_id", ["audience1", "audience2"], "3600")
 
     @patch('requests.delete')
-    def test_delete_project_level_claims_successful(self, mock_delete):
+    def test_delete_project_level_claims_successful(self, mock_delete: Mock) -> None:
+        """
+        Test delete project level claims successful
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Claims deleted successfully"}
@@ -2355,7 +2841,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Claims deleted successfully"})
 
     @patch('requests.delete')
-    def test_delete_project_level_claims_not_found(self, mock_delete):
+    def test_delete_project_level_claims_not_found(self, mock_delete: Mock) -> None:
+        """
+        Test delete project level claims not found
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Organization or project not found"}
@@ -2366,7 +2861,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.delete_project_level_claims("org_id", "project_id", "claim1,claim2")
 
     @patch('requests.delete')
-    def test_delete_project_level_claims_server_error(self, mock_delete):
+    def test_delete_project_level_claims_server_error(self, mock_delete: Mock) -> None:
+        """
+        Test delete project level claims with server error
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2377,7 +2881,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.delete_project_level_claims("org_id", "project_id", "claim1,claim2")
 
     @patch('requests.get')
-    def test_get_project_level_claims_successful(self, mock_get):
+    def test_get_project_level_claims_successful(self, mock_get: Mock) -> None:
+        """
+        Test get project level claims successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"claims": ["claim1", "claim2"]}
@@ -2390,7 +2903,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"claims": ["claim1", "claim2"]})
 
     @patch('requests.get')
-    def test_get_project_level_claims_not_found(self, mock_get):
+    def test_get_project_level_claims_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get project level claims not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Project not found"}
@@ -2401,7 +2923,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_project_level_claims("org_id", "project_id")
 
     @patch('requests.get')
-    def test_get_project_level_claims_server_error(self, mock_get):
+    def test_get_project_level_claims_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get project level claims with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2412,7 +2943,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_project_level_claims("org_id", "project_id")
 
     @patch('requests.patch')
-    def test_create_or_update_project_level_claims_successful(self, mock_patch):
+    def test_create_or_update_project_level_claims_successful(self, mock_patch: Mock) -> None:
+        """
+        Test create or update project level claims successful
+
+        Args:
+            mock_patch (Mock): Mock object for requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Claims created or updated successfully"}
@@ -2426,7 +2966,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Claims created or updated successfully"})
 
     @patch('requests.patch')
-    def test_create_or_update_project_level_claims_invalid_org(self, mock_patch):
+    def test_create_or_update_project_level_claims_invalid_org(self, mock_patch: Mock) -> None:
+        """
+        Test create or update project level claims with invalid
+
+        Args:
+            mock_patch (Mock): Mock object for requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 400
         mock_response.json.return_value = {"message": "Invalid organization"}
@@ -2438,7 +2987,16 @@ class TestCircleCIClient(unittest.TestCase):
                                                          ["audience1", "audience2"], "3600")
 
     @patch('requests.patch')
-    def test_create_or_update_project_level_claims_server_error(self, mock_patch):
+    def test_create_or_update_project_level_claims_server_error(self, mock_patch: Mock) -> None:
+        """
+        Test create or update project level claims with server error
+
+        Args:
+            mock_patch (Mock): Mock object for requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2450,7 +3008,16 @@ class TestCircleCIClient(unittest.TestCase):
                                                          ["audience1", "audience2"], "3600")
 
     @patch('requests.get')
-    def test_get_project_successful(self, mock_get):
+    def test_get_project_successful(self, mock_get: Mock) -> None:
+        """
+        Test get project successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"id": "project_id", "name": "project_name"}
@@ -2463,7 +3030,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"id": "project_id", "name": "project_name"})
 
     @patch('requests.get')
-    def test_get_project_not_found(self, mock_get):
+    def test_get_project_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get project not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Project not found"}
@@ -2474,7 +3050,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_project("gh/CircleCI-Public/nonexistent-project")
 
     @patch('requests.get')
-    def test_get_project_server_error(self, mock_get):
+    def test_get_project_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get project with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2485,7 +3070,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_project("gh/CircleCI-Public/api-preview-docs")
 
     @patch('requests.post')
-    def test_create_checkout_key_successful(self, mock_post):
+    def test_create_checkout_key_successful(self, mock_post: Mock) -> None:
+        """
+        Test create checkout key successful
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Checkout key created successfully"}
@@ -2498,7 +3092,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Checkout key created successfully"})
 
     @patch('requests.post')
-    def test_create_checkout_key_invalid_project(self, mock_post):
+    def test_create_checkout_key_invalid_project(self, mock_post: Mock) -> None:
+        """
+        Test create checkout key with invalid project
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Project not found"}
@@ -2509,7 +3112,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.create_checkout_key("gh/CircleCI-Public/nonexistent-project", "deploy-key")
 
     @patch('requests.post')
-    def test_create_checkout_key_server_error(self, mock_post):
+    def test_create_checkout_key_server_error(self, mock_post: Mock) -> None:
+        """
+        Test create checkout key with server error
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2520,7 +3132,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.create_checkout_key("gh/CircleCI-Public/api-preview-docs", "deploy-key")
 
     @patch('requests.get')
-    def test_get_all_checkout_keys_successful(self, mock_get):
+    def test_get_all_checkout_keys_successful(self, mock_get: Mock) -> None:
+        """
+        Test get all checkout keys successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = [{"fingerprint": "fingerprint1", "type": "deploy-key"}]
@@ -2534,7 +3155,16 @@ class TestCircleCIClient(unittest.TestCase):
                          {'response': [{'fingerprint': 'fingerprint1', 'type': 'deploy-key'}]})
 
     @patch('requests.get')
-    def test_get_all_checkout_keys_with_digest(self, mock_get):
+    def test_get_all_checkout_keys_with_digest(self, mock_get: Mock) -> None:
+        """
+        Test get all checkout keys with digest
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = [{"fingerprint": "fingerprint1", "type": "deploy-key"}]
@@ -2549,7 +3179,16 @@ class TestCircleCIClient(unittest.TestCase):
                          {'response': [{'fingerprint': 'fingerprint1', 'type': 'deploy-key'}]})
 
     @patch('requests.get')
-    def test_get_all_checkout_keys_not_found(self, mock_get):
+    def test_get_all_checkout_keys_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get all checkout keys not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Project not found"}
@@ -2560,7 +3199,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_all_checkout_keys("gh/CircleCI-Public/nonexistent-project", "")
 
     @patch('requests.get')
-    def test_get_all_checkout_keys_server_error(self, mock_get):
+    def test_get_all_checkout_keys_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get all checkout keys with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2571,20 +3219,39 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_all_checkout_keys("gh/CircleCI-Public/api-preview-docs", "")
 
     @patch('requests.delete')
-    def test_delete_checkout_key_successful(self, mock_delete):
+    def test_delete_checkout_key_successful(self, mock_delete: Mock) -> None:
+        """
+        Test delete checkout key successful
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Checkout key deleted successfully"}
         mock_delete.return_value = mock_response
 
         client = CircleCI(token="dummy_token")
-        response = client.delete_checkout_key("gh/CircleCI-Public/api-preview-docs", "fingerprint")
+        response = client.delete_checkout_key("gh/CircleCI-Public/api-preview-docs",
+                                              "fingerprint")
 
         self.assertEqual(response.metadata.status_code, 200)
         self.assertEqual(response.raw_data, {"message": "Checkout key deleted successfully"})
 
     @patch('requests.delete')
-    def test_delete_checkout_key_not_found(self, mock_delete):
+    def test_delete_checkout_key_not_found(self, mock_delete: Mock) -> None:
+        """
+        Test delete checkout key not found
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Checkout key not found"}
@@ -2596,7 +3263,16 @@ class TestCircleCIClient(unittest.TestCase):
                                        "nonexistent-fingerprint")
 
     @patch('requests.delete')
-    def test_delete_checkout_key_server_error(self, mock_delete):
+    def test_delete_checkout_key_server_error(self, mock_delete: Mock) -> None:
+        """
+        Test delete checkout key with server error
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2604,23 +3280,43 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.delete_checkout_key("gh/CircleCI-Public/api-preview-docs", "fingerprint")
+            client.delete_checkout_key("gh/CircleCI-Public/api-preview-docs",
+                                       "fingerprint")
 
     @patch('requests.get')
-    def test_get_checkout_key_successful(self, mock_get):
+    def test_get_checkout_key_successful(self, mock_get: Mock) -> None:
+        """
+        Test get checkout key successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"fingerprint": "fingerprint1", "type": "deploy-key"}
         mock_get.return_value = mock_response
 
         client = CircleCI(token="dummy_token")
-        response = client.get_checkout_key("gh/CircleCI-Public/api-preview-docs", "fingerprint1")
+        response = client.get_checkout_key("gh/CircleCI-Public/api-preview-docs",
+                                           "fingerprint1")
 
         self.assertEqual(response.metadata.status_code, 200)
         self.assertEqual(response.raw_data, {"fingerprint": "fingerprint1", "type": "deploy-key"})
 
     @patch('requests.get')
-    def test_get_checkout_key_not_found(self, mock_get):
+    def test_get_checkout_key_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get checkout key not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Checkout key not found"}
@@ -2632,7 +3328,16 @@ class TestCircleCIClient(unittest.TestCase):
                                     "nonexistent-fingerprint")
 
     @patch('requests.get')
-    def test_get_checkout_key_server_error(self, mock_get):
+    def test_get_checkout_key_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get checkout key with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2640,24 +3345,44 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.get_checkout_key("gh/CircleCI-Public/api-preview-docs", "fingerprint1")
+            client.get_checkout_key("gh/CircleCI-Public/api-preview-docs",
+                                    "fingerprint1")
 
     @patch('requests.post')
-    def test_create_env_var_successful(self, mock_post):
+    def test_create_env_var_successful(self, mock_post: Mock) -> None:
+        """
+        Test create environment variable successful
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Environment variable created successfully"}
         mock_post.return_value = mock_response
 
         client = CircleCI(token="dummy_token")
-        response = client.create_env_var("gh/CircleCI-Public/api-preview-docs", "ENV_VAR", "value")
+        response = client.create_env_var("gh/CircleCI-Public/api-preview-docs",
+                                         "ENV_VAR", "value")
 
         self.assertEqual(response.metadata.status_code, 200)
         self.assertEqual(response.raw_data,
                          {"message": "Environment variable created successfully"})
 
     @patch('requests.post')
-    def test_create_env_var_invalid_project(self, mock_post):
+    def test_create_env_var_invalid_project(self, mock_post: Mock) -> None:
+        """
+        Test create environment variable with invalid project
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Project not found"}
@@ -2665,10 +3390,20 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.create_env_var("gh/CircleCI-Public/invalid-project", "ENV_VAR", "value")
+            client.create_env_var("gh/CircleCI-Public/invalid-project",
+                                  "ENV_VAR", "value")
 
     @patch('requests.post')
-    def test_create_env_var_server_error(self, mock_post):
+    def test_create_env_var_server_error(self, mock_post: Mock) -> None:
+        """
+        Test create environment variable with server error
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2676,10 +3411,20 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.create_env_var("gh/CircleCI-Public/api-preview-docs", "ENV_VAR", "value")
+            client.create_env_var("gh/CircleCI-Public/api-preview-docs",
+                                  "ENV_VAR", "value")
 
     @patch('requests.get')
-    def test_get_all_env_vars_successful(self, mock_get):
+    def test_get_all_env_vars_successful(self, mock_get: Mock) -> None:
+        """
+        Test get all environment variables successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = [{"name": "ENV_VAR", "value": "value"}]
@@ -2692,7 +3437,16 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {'response': [{'name': 'ENV_VAR', 'value': 'value'}]})
 
     @patch('requests.get')
-    def test_get_all_env_vars_not_found(self, mock_get):
+    def test_get_all_env_vars_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get all environment variables not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Project not found"}
@@ -2703,7 +3457,16 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_all_env_vars("gh/CircleCI-Public/api-preview-docs")
 
     @patch('requests.get')
-    def test_get_all_env_vars_server_error(self, mock_get):
+    def test_get_all_env_vars_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get all environment variables with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2714,21 +3477,40 @@ class TestCircleCIClient(unittest.TestCase):
             client.get_all_env_vars("gh/CircleCI-Public/api-preview-docs")
 
     @patch('requests.delete')
-    def test_delete_env_var_successful(self, mock_delete):
+    def test_delete_env_var_successful(self, mock_delete: Mock) -> None:
+        """
+        Test delete environment variable successful
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Environment variable deleted successfully"}
         mock_delete.return_value = mock_response
 
         client = CircleCI(token="dummy_token")
-        response = client.delete_env_var("gh/CircleCI-Public/api-preview-docs", "ENV_VAR")
+        response = client.delete_env_var("gh/CircleCI-Public/api-preview-docs",
+                                         "ENV_VAR")
 
         self.assertEqual(response.metadata.status_code, 200)
         self.assertEqual(response.raw_data,
                          {"message": "Environment variable deleted successfully"})
 
     @patch('requests.delete')
-    def test_delete_env_var_not_found(self, mock_delete):
+    def test_delete_env_var_not_found(self, mock_delete: Mock) -> None:
+        """
+        Test delete environment variable not found
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Environment variable not found"}
@@ -2736,10 +3518,20 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.delete_env_var("gh/CircleCI-Public/api-preview-docs", "ENV_VAR")
+            client.delete_env_var("gh/CircleCI-Public/api-preview-docs",
+                                  "ENV_VAR")
 
     @patch('requests.delete')
-    def test_delete_env_var_server_error(self, mock_delete):
+    def test_delete_env_var_server_error(self, mock_delete: Mock) -> None:
+        """
+        Test delete environment variable with server error
+
+        Args:
+            mock_delete (Mock): Mock object for requests.delete
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2747,23 +3539,43 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.delete_env_var("gh/CircleCI-Public/api-preview-docs", "ENV_VAR")
+            client.delete_env_var("gh/CircleCI-Public/api-preview-docs",
+                                  "ENV_VAR")
 
     @patch('requests.get')
-    def test_get_masked_env_var_successful(self, mock_get):
+    def test_get_masked_env_var_successful(self, mock_get: Mock) -> None:
+        """
+        Test get masked environment variable successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"name": "ENV_VAR", "value": "masked_value"}
         mock_get.return_value = mock_response
 
         client = CircleCI(token="dummy_token")
-        response = client.get_masked_env_var("gh/CircleCI-Public/api-preview-docs", "ENV_VAR")
+        response = client.get_masked_env_var("gh/CircleCI-Public/api-preview-docs",
+                                             "ENV_VAR")
 
         self.assertEqual(response.metadata.status_code, 200)
         self.assertEqual(response.raw_data, {"name": "ENV_VAR", "value": "masked_value"})
 
     @patch('requests.get')
-    def test_get_masked_env_var_not_found(self, mock_get):
+    def test_get_masked_env_var_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get masked environment variable not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Environment variable not found"}
@@ -2771,10 +3583,20 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.get_masked_env_var("gh/CircleCI-Public/api-preview-docs", "ENV_VAR")
+            client.get_masked_env_var("gh/CircleCI-Public/api-preview-docs",
+                                      "ENV_VAR")
 
     @patch('requests.get')
-    def test_get_masked_env_var_server_error(self, mock_get):
+    def test_get_masked_env_var_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get masked environment variable with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2782,23 +3604,43 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.get_masked_env_var("gh/CircleCI-Public/api-preview-docs", "ENV_VAR")
+            client.get_masked_env_var("gh/CircleCI-Public/api-preview-docs",
+                                      "ENV_VAR")
 
     @patch('requests.post')
-    def test_create_new_project_successful(self, mock_post):
+    def test_create_new_project_successful(self, mock_post: Mock) -> None:
+        """
+        Test create new project successful
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Project created successfully"}
         mock_post.return_value = mock_response
 
         client = CircleCI(token="dummy_token")
-        response = client.create_new_project("gh", "CircleCI-Public", "api-preview-docs")
+        response = client.create_new_project("gh", "CircleCI-Public",
+                                             "api-preview-docs")
 
         self.assertEqual(response.metadata.status_code, 200)
         self.assertEqual(response.raw_data, {"message": "Project created successfully"})
 
     @patch('requests.post')
-    def test_create_new_project_invalid_vcs_type(self, mock_post):
+    def test_create_new_project_invalid_vcs_type(self, mock_post: Mock) -> None:
+        """
+        Test create new project with invalid VCS type
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 400
         mock_response.json.return_value = {"message": "Invalid VCS type"}
@@ -2806,10 +3648,20 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.create_new_project("invalid_vcs", "CircleCI-Public", "api-preview-docs")
+            client.create_new_project("invalid_vcs", "CircleCI-Public",
+                                      "api-preview-docs")
 
     @patch('requests.post')
-    def test_create_new_project_not_found(self, mock_post):
+    def test_create_new_project_not_found(self, mock_post: Mock) -> None:
+        """
+        Test create new project not found
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Organization or repository not found"}
@@ -2817,10 +3669,20 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.create_new_project("gh", "NonExistentOrg", "NonExistentRepo")
+            client.create_new_project("gh", "NonExistentOrg",
+                                      "NonExistentRepo")
 
     @patch('requests.post')
-    def test_create_new_project_server_error(self, mock_post):
+    def test_create_new_project_server_error(self, mock_post: Mock) -> None:
+        """
+        Test create new project with server error
+
+        Args:
+            mock_post (Mock): Mock object for requests.post
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2828,23 +3690,43 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.create_new_project("gh", "CircleCI-Public", "api-preview-docs")
+            client.create_new_project("gh", "CircleCI-Public",
+                                      "api-preview-docs")
 
     @patch('requests.get')
-    def test_get_project_setting_successful(self, mock_get):
+    def test_get_project_setting_successful(self, mock_get: Mock) -> None:
+        """
+        Test get project setting successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"settings": "some_settings"}
         mock_get.return_value = mock_response
 
         client = CircleCI(token="dummy_token")
-        response = client.get_project_setting("gh", "CircleCI-Public", "api-preview-docs")
+        response = client.get_project_setting("gh", "CircleCI-Public",
+                                              "api-preview-docs")
 
         self.assertEqual(response.metadata.status_code, 200)
         self.assertEqual(response.raw_data, {"settings": "some_settings"})
 
     @patch('requests.get')
-    def test_get_project_setting_not_found(self, mock_get):
+    def test_get_project_setting_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get project setting not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Project not found"}
@@ -2852,10 +3734,20 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.get_project_setting("gh", "NonExistentOrg", "NonExistentRepo")
+            client.get_project_setting("gh", "NonExistentOrg",
+                                       "NonExistentRepo")
 
     @patch('requests.get')
-    def test_get_project_setting_server_error(self, mock_get):
+    def test_get_project_setting_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get project setting with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2863,24 +3755,44 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.get_project_setting("gh", "CircleCI-Public", "api-preview-docs")
+            client.get_project_setting("gh", "CircleCI-Public",
+                                       "api-preview-docs")
 
     @patch('requests.patch')
-    def test_update_project_setting_successful(self, mock_patch):
+    def test_update_project_setting_successful(self, mock_patch: Mock) -> None:
+        """
+        Test update project setting successful
+
+        Args:
+            mock_patch (Mock): Mock object for requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"message": "Settings updated successfully"}
         mock_patch.return_value = mock_response
 
         client = CircleCI(token="dummy_token")
-        response = client.update_project_setting("gh", "CircleCI-Public", "api-preview-docs",
+        response = client.update_project_setting("gh", "CircleCI-Public",
+                                                 "api-preview-docs",
                                                  {"key": "value"})
 
         self.assertEqual(response.metadata.status_code, 200)
         self.assertEqual(response.raw_data, {"message": "Settings updated successfully"})
 
     @patch('requests.patch')
-    def test_update_project_setting_invalid_vcs_type(self, mock_patch):
+    def test_update_project_setting_invalid_vcs_type(self, mock_patch: Mock) -> None:
+        """
+        Test update project setting with invalid VCS type
+
+        Args:
+            mock_patch (Mock): Mock object for requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 400
         mock_response.json.return_value = {"message": "Invalid VCS type"}
@@ -2888,11 +3800,21 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.update_project_setting("invalid_vcs", "CircleCI-Public", "api-preview-docs",
+            client.update_project_setting("invalid_vcs", "CircleCI-Public",
+                                          "api-preview-docs",
                                           {"key": "value"})
 
     @patch('requests.patch')
-    def test_update_project_setting_not_found(self, mock_patch):
+    def test_update_project_setting_not_found(self, mock_patch: Mock) -> None:
+        """
+        Test update project setting not found
+
+        Args:
+            mock_patch (Mock): Mock object for requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 404
         mock_response.json.return_value = {"message": "Project not found"}
@@ -2900,11 +3822,21 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.update_project_setting("gh", "NonExistentOrg", "NonExistentRepo",
+            client.update_project_setting("gh", "NonExistentOrg",
+                                          "NonExistentRepo",
                                           {"key": "value"})
 
     @patch('requests.patch')
-    def test_update_project_setting_server_error(self, mock_patch):
+    def test_update_project_setting_server_error(self, mock_patch: Mock) -> None:
+        """
+        Test update project setting with server error
+
+        Args:
+            mock_patch (Mock): Mock object for requests.patch
+
+        Returns:
+            None
+        """
         mock_response = Mock()
         mock_response.status_code = 500
         mock_response.json.return_value = {"message": "Server Error"}
@@ -2912,11 +3844,21 @@ class TestCircleCIClient(unittest.TestCase):
 
         client = CircleCI(token="dummy_token")
         with self.assertRaises(CircleCIError):
-            client.update_project_setting("gh", "CircleCI-Public", "api-preview-docs",
+            client.update_project_setting("gh", "CircleCI-Public",
+                                          "api-preview-docs",
                                           {"key": "value"})
 
     @patch('requests.get')
-    def test_get_last_build_artifacts_by_project_name_successful(self, mock_get):
+    def test_get_last_build_artifacts_by_project_name_successful(self, mock_get: Mock) -> None:
+        """
+        Test get last build artifacts by project name successful
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_pipeline_response = Mock()
         mock_pipeline_response.status_code = 200
         mock_pipeline_response.json.return_value = {'items': [{'id': 'pipeline_id'}]}
@@ -2946,7 +3888,17 @@ class TestCircleCIClient(unittest.TestCase):
                          {'response': [{'path': 'artifact_path', 'url': 'artifact_url'}]})
 
     @patch('requests.get')
-    def test_get_last_build_artifacts_by_project_name_pipeline_not_found(self, mock_get):
+    def test_get_last_build_artifacts_by_project_name_pipeline_not_found(self,
+                                                                         mock_get: Mock) -> None:
+        """
+        Test get last build artifacts by project name pipeline not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_pipeline_response = Mock()
         mock_pipeline_response.status_code = 404
         mock_pipeline_response.json.return_value = {"message": "Pipeline not found"}
@@ -2959,7 +3911,17 @@ class TestCircleCIClient(unittest.TestCase):
                                                             "main")
 
     @patch('requests.get')
-    def test_get_last_build_artifacts_by_project_name_workflow_not_found(self, mock_get):
+    def test_get_last_build_artifacts_by_project_name_workflow_not_found(self,
+                                                                         mock_get: Mock) -> None:
+        """
+        Test get last build artifacts by project name workflow not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_pipeline_response = Mock()
         mock_pipeline_response.status_code = 200
         mock_pipeline_response.json.return_value = {'items': [{'id': 'pipeline_id'}]}
@@ -2976,7 +3938,16 @@ class TestCircleCIClient(unittest.TestCase):
                                                             "main")
 
     @patch('requests.get')
-    def test_get_last_build_artifacts_by_project_name_job_not_found(self, mock_get):
+    def test_get_last_build_artifacts_by_project_name_job_not_found(self, mock_get: Mock) -> None:
+        """
+        Test get last build artifacts by project name job not found
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_pipeline_response = Mock()
         mock_pipeline_response.status_code = 200
         mock_pipeline_response.json.return_value = {'items': [{'id': 'pipeline_id'}]}
@@ -2998,7 +3969,16 @@ class TestCircleCIClient(unittest.TestCase):
                                                             "main")
 
     @patch('requests.get')
-    def test_get_last_build_artifacts_by_project_name_server_error(self, mock_get):
+    def test_get_last_build_artifacts_by_project_name_server_error(self, mock_get: Mock) -> None:
+        """
+        Test get last build artifacts by project name with server error
+
+        Args:
+            mock_get (Mock): Mock object for requests.get
+
+        Returns:
+            None
+        """
         mock_pipeline_response = Mock()
         mock_pipeline_response.status_code = 200
         mock_pipeline_response.json.return_value = {'items': [{'id': 'pipeline_id'}]}
