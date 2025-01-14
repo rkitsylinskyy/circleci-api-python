@@ -2,7 +2,7 @@
 import unittest
 from unittest.mock import patch, Mock
 
-from circleci.client import CircleCI, CircleCIError
+from circleci_api_python.client import CircleCI, CircleCIError
 
 
 class TestCircleCIClient(unittest.TestCase):

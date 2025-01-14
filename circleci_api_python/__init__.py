@@ -9,8 +9,8 @@ try:
 except (ImportError, Exception):
     __version__ = "unknown"
 
-from circleci.client import CircleCI
-from circleci.exceptions import CircleCIError
+from circleci_api_python.client import CircleCI
+from circleci_api_python.exceptions import CircleCIError
 
 __all__ = (
     "__version__",

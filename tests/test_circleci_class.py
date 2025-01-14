@@ -2,8 +2,8 @@
 import unittest
 from unittest.mock import patch, Mock
 
-from circleci import CircleCIError
-from circleci.client import CircleCI
+from circleci_api_python import CircleCIError
+from circleci_api_python.client import CircleCI
 
 
 # pylint: disable=protected-access
@@ -350,7 +350,7 @@ class TestCircleCIClient(unittest.TestCase):
 
     # --------------------------------- DECORATOR ---------------------------------
 
-    @patch('circleci.client.dict_to_circleci_resource')
+    @patch('circleci_api_python.client.dict_to_circleci_resource')
     def test_response_validation_successful_dict(self, mock_dict_to_circleci_resource):
         """
         Test the response_validation decorator with a successful response
@@ -380,7 +380,7 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response, {"key": "value",
                                     "metadata": {"status_code": 200, "url": "http://example.com"}})
 
-    @patch('circleci.client.dict_to_circleci_resource')
+    @patch('circleci_api_python.client.dict_to_circleci_resource')
     def test_response_validation_successful_list(self, mock_dict_to_circleci_resource):
         """
         Test the response_validation decorator with a successful response

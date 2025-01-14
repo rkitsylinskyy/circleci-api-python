@@ -11,11 +11,11 @@ from functools import wraps
 import requests
 from requests import Response
 
-from circleci.exceptions import CircleCIError
-from circleci.resources import dict_to_circleci_resource, CircleCIPropertyHolder
-from circleci.utils import validate_login
+from circleci_api_python.exceptions import CircleCIError
+from circleci_api_python.resources import dict_to_circleci_resource, CircleCIPropertyHolder
+from circleci_api_python.utils import validate_login
 
-LOG = _log.getLogger("circleci")
+LOG = _log.getLogger("circleci_api_python")
 LOG.addHandler(_log.NullHandler())
 
 

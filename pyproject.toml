@@ -1,0 +1,46 @@
+[build-system]
+requires = ['setuptools', 'wheel']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = "circleci-api-python"
+version = "0.0.1"
+description = "Python API for CircleCI"
+readme = "README.md"
+authors = [{ name = "Rostyslav Kitsylinskyy", email = "rostyslav.kitsylinskyy@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+keywords = ["circleci", "api", "python"]
+dependencies = [
+    "requests",
+    "setuptools",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = [
+    "pip-tools",
+    "pytest",
+    "pylint"
+]
+
+[project.urls]
+author-homepage = "https://www.linkedin.com/in/rostyslav-kitsylinskyy-587108118/"
+repository = "https://github.com/rkitsylinskyy/circleci-api-python"
+
+[tool.setuptools.packages.find]
+where = ["."]

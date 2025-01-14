@@ -1,7 +1,7 @@
 [MASTER]
 
 [MESSAGES CONTROL]
-disable=W0703, R0903, R1732
+disable=W0703, R0903, R1732, R0801
 
 [FORMAT]
 max-line-length=100
