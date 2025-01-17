@@ -28,16 +28,16 @@ class CircleCI:
                  logging: bool = True,
                  max_retries: int = 3,
                  retry_delay: int = 1,
-                 timeout: None or int = 3,
+                 timeout: tuple = (5, 15),
                  login_validation: bool = False):
         self.__token = token
-        self.headers = {'Circle-Token': self.__token}
+        self.__headers = {'Circle-Token': self.__token}
 
         LOG.setLevel(_log.INFO if logging else _log.CRITICAL)
         self.log = LOG
 
         if login_validation:
-            valid, response = validate_login(self.BASE_URL, self.headers)
+            valid, response = validate_login(self.BASE_URL, self.__headers)
             if not valid:
                 raise CircleCIError("Cannot login with the provided token. "
                                     "Please check the token.",
@@ -51,66 +51,81 @@ class CircleCI:
     def _get(self, endpoint: str) -> requests.Response:
         """
         Perform a GET request.
-        :param endpoint: API endpoint
-        :return: response
+
+        Args:
+            endpoint (str): API endpoint
+
+        Returns:
+            response: requests.Response
         """
-        response = requests.get(self.BASE_URL + endpoint,
-                                headers=self.headers,
-                                timeout=self.timeout)
-        return response
+        return requests.get(self.BASE_URL + endpoint,
+                            headers=self.__headers,
+                            timeout=self.timeout)
 
     def _post(self, endpoint: str,
               payload: dict or None = None) -> requests.Response:
         """
         Perform a POST request.
-        :param endpoint: API endpoint
-        :param payload: request payload
-        :return: response
+
+        Args:
+            endpoint (str): API endpoint
+            payload (dict): request payload
+
+        Returns:
+            response: requests.Response
         """
-        response = requests.post(self.BASE_URL + endpoint,
-                                 headers=self.headers,
-                                 json=payload,
-                                 timeout=self.timeout)
-        return response
+        return requests.post(self.BASE_URL + endpoint,
+                             headers=self.__headers,
+                             json=payload,
+                             timeout=self.timeout)
 
     def _delete(self, endpoint: str) -> requests.Response:
         """
         Perform a DELETE request.
-        :param endpoint: API endpoint
-        :return: response
+
+        Args:
+            endpoint (str): API endpoint
+
+        Returns:
+            response: requests.Response
         """
-        response = requests.delete(self.BASE_URL + endpoint,
-                                   headers=self.headers,
-                                   timeout=self.timeout)
-        return response
+        return requests.delete(self.BASE_URL + endpoint,
+                               headers=self.__headers,
+                               timeout=self.timeout)
 
     def _patch(self, endpoint: str,
                payload: dict) -> requests.Response:
         """
         Perform a PATCH request.
-        :param endpoint: API endpoint
-        :param payload: request payload
-        :return: response
+
+        Args:
+            endpoint (str): API endpoint
+            payload (dict): request payload
+
+        Returns:
+            response: requests.Response
         """
-        response = requests.patch(self.BASE_URL + endpoint,
-                                  headers=self.headers,
-                                  json=payload,
-                                  timeout=self.timeout)
-        return response
+        return requests.patch(self.BASE_URL + endpoint,
+                              headers=self.__headers,
+                              json=payload,
+                              timeout=self.timeout)
 
     def _put(self, endpoint: str,
              payload: dict) -> requests.Response:
         """
         Perform a PUT request.
-        :param endpoint: API endpoint
-        :param payload: request payload
-        :return: response
+
+        Args:
+            endpoint (str): API endpoint
+            payload (dict): request payload
+
+        Returns:
+            response: requests.Response
         """
-        response = requests.put(self.BASE_URL + endpoint,
-                                headers=self.headers,
-                                json=payload,
-                                timeout=self.timeout)
-        return response
+        return requests.put(self.BASE_URL + endpoint,
+                            headers=self.__headers,
+                            json=payload,
+                            timeout=self.timeout)
 
     @staticmethod
     def response_validation(func):
