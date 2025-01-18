@@ -22,6 +22,14 @@ jobs:
         run: |
           pip install --upgrade build twine
 
+      - name: Run linter
+        run: |
+          ./run_linter.sh
+
+      - name: Run unit tests
+        run: |
+          ./run_unit_tests.sh
+
       - name: Build package
         run: |
           python -m build

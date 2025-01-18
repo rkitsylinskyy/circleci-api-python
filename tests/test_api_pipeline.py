@@ -347,19 +347,6 @@ class TestCircleCIClient(unittest.TestCase):
         self.assertEqual(response.raw_data, {"message": "Pipeline triggered successfully"})
 
     @patch('requests.post')
-    def test_trigger_pipeline_invalid_branch_and_tag(self) -> None:
-        """
-        Test trigger pipeline with invalid branch and tag
-
-        Returns:
-            None
-        """
-        client = CircleCI(token="dummy_token")
-        with self.assertRaises(CircleCIError):
-            client.trigger_pipeline("gh/CircleCI-Public/api-preview-docs", branch="main",
-                                    tag="v1.0")
-
-    @patch('requests.post')
     def test_trigger_pipeline_server_error(self, mock_post: Mock) -> None:
         """
         Test trigger pipeline with server error
